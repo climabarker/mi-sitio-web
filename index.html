@@ -1,1 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debarker - Ingeniería en Climatización y Refrigeración</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        :root {
+            --primary-blue: #3498db;
+            --dark-blue: #2c3e50;
+            --accent-orange: #e67e22;
+            --light-gray: #f4f7f6;
+            --text-color: #333;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navegación */
+        nav {
+            background: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            height: 50px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), 
+                        url('https://images.unsplash.com/photo-1581094288338-2314dddb7ec3?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; max-width: 700px; }
+
+        /* Secciones */
+        section { padding: 4rem 10%; }
+        .section-title { text-align: center; margin-bottom: 3rem; }
+        .section-title h2 { color: var(--dark-blue); font-size: 2rem; }
+
+        /* Servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover { transform: translateY(-10px); }
+        .service-card i { font-size: 3rem; color: var(--primary-blue); }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 3rem 10% 1rem;
+            text-align: center;
+        }
+
+        .contact-info { margin-bottom: 2rem; }
+        .btn-contact {
+            background: var(--accent-orange);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            nav { flex-direction: column; }
+            .nav-links { margin-top: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <img src="logo.png" alt="Debarker Logo" class="nav-logo">
+        <div class="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </nav>
+
+    <header class="hero" id="inicio">
+        <h1>Ingeniería en Climatización</h1>
+        <p>Soluciones integrales en refrigeración industrial y comercial con los más altos estándares de calidad.</p>
+        <a href="#contacto" class="btn-contact">Solicitar Presupuesto</a>
+    </header>
+
+    <section id="servicios">
+        <div class="section-title">
+            <h2>Nuestros Servicios</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>❄️ Refrigeración Industrial</h3>
+                <p>Instalación y mantenimiento de cámaras frigoríficas y túneles de congelado.</p>
+            </div>
+            <div class="service-card">
+                <h3>🔥 Climatización HVAC</h3>
+                <p>Sistemas de aire acondicionado centralizado y ventilación forzada para empresas.</p>
+            </div>
+            <div class="service-card">
+                <h3>🛠️ Mantenimiento Preventivo</h3>
+                <p>Planes de servicio técnico para asegurar la continuidad de su operación.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros" style="background-color: var(--light-gray);">
+        <div class="section-title">
+            <h2>Sobre Debarker</h2>
+        </div>
+        <p style="max-width: 800px; margin: 0 auto; text-align: center;">
+            Somos expertos en ingeniería térmica. Nos dedicamos a diseñar y ejecutar proyectos que garantizan el control exacto de la temperatura, optimizando el consumo energético de nuestros clientes.
+        </p>
+    </section>
+
+    <footer id="contacto">
+        <div class="contact-info">
+            <h2>Contáctenos</h2>
+            <p>Estamos listos para asesorarlo en su próximo proyecto.</p>
+            <p>📍 Ubicación: Temuco, Araucanía, Chile</p>
+            <p>📧 Email: contacto@climabarker.cl</p>
+            <a href="mailto:contacto@climabarker.cl" class="btn-contact">Enviar Correo</a>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 2rem 0;">
+        <p><small>&copy; 2026 Debarker Ingeniería. Todos los derechos reservados.</small></p>
+    </footer>
+
+</body>
+</html>
