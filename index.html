@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Debarker - Ingeniería en Climatización y Refrigeración</title>
-    <link rel="icon" type="image/png" href="logo_actualizado_animado.mp4">
+    <link rel="icon" type="image/png" href="logo_actualizado.jpeg">
     <style>
         :root {
             --primary-blue: #3498db;
@@ -43,7 +43,7 @@
             display: flex;
             align-items: center;
             /* Cambia este valor para ajustar el tamaño general */
-            height: 50px; 
+            height: 100px; 
             padding: 5px 0;
         }
 
@@ -132,6 +132,127 @@
             nav { flex-direction: column; }
             .nav-links { margin-top: 1rem; }
         }
+	
+	/* SECCIÓN DE MARCAS AJUSTADA */
+    #marcas {
+        background-color: white;
+        padding: 2rem 10%; /* Reducimos un poco el padding vertical */
+    }
+
+    .brands-container {
+        display: flex;
+        flex-direction: row; /* Asegura la horizontalidad */
+        justify-content: center; /* Centra los logos */
+        align-items: center; /* Alineación vertical perfecta */
+        gap: 3rem;
+        margin-top: 1rem;
+        overflow-x: auto; /* Por si en móviles son muy anchos, permite scroll lateral */
+        padding: 10px 0;
+    }
+
+    .brand-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* AJUSTE VERTICAL: Aquí controlas qué tan alto es el espacio de las marcas */
+        height: 150px; 
+        flex: 0 0 auto; /* Evita que los logos se encojan si hay poco espacio */
+    }
+
+    .brand-logo {
+        max-height: 100%; /* El logo nunca será más alto que el brand-item */
+        width: auto;      /* El ancho se ajusta proporcionalmente */
+        max-width: 120px; /* Limitamos el ancho para que no se desproporcione */
+        filter: grayscale(100%);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+    }
+
+    .brand-logo:hover {
+        filter: grayscale(0%);
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    /* Ajuste para pantallas pequeñas */
+    @media (max-width: 768px) {
+        .brands-container {
+            gap: 1.5rem;
+            justify-content: flex-start; /* En móvil, mejor que empiecen a la izquierda */
+            padding-left: 10px;
+        }
+        .brand-item {
+            height: 45px; /* Más pequeño en móviles */
+        }
+    }
+
+/* ESTILOS DEL FORMULARIO */
+    .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .contact-form {
+        background: var(--light-gray);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: var(--dark-blue);
+    }
+
+    .form-group input, 
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box; /* Importante para que no se salga del contenedor */
+    }
+
+    .btn-submit {
+        background: var(--accent-orange);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.3s;
+    }
+
+    .btn-submit:hover {
+        background: #d35400;
+    }
+
+    .contact-details h3 {
+        color: var(--dark-blue);
+        margin-top: 0;
+    }
+
+    @media (max-width: 768px) {
+        .contact-container {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+    }	
+	
     </style>
 </head>
 <body>
@@ -190,7 +311,7 @@
                 <img src="logo_khone.png" alt="Khone Refrigeración" class="brand-logo">
             </div>
             <div class="brand-item">
-                <img src="logo_samsung.svg" alt="Samsung HVAC" class="brand-logo">
+                <img src="logo_samsung.png" alt="Samsung HVAC" class="brand-logo">
             </div>
         </div>
     </section>
@@ -204,17 +325,57 @@
         </p>
     </section>
 
-    <footer id="contacto">
-        <div class="contact-info">
-            <h2>Contáctenos</h2>
-            <p>Estamos listos para asesorarlo en su próximo proyecto.</p>
-            <p>📍 Ubicación: General Mackenna 092 Temuco, Araucanía, Chile</p>
-            <p>📧 Email: climabarker@gmail.com</p>
-            <a href="mailto:climabarker@gmail.com" class="btn-contact">Enviar Correo</a>
+    <section id="contacto" style="background-color: white;">
+    <div class="section-title">
+        <h2>Contáctenos</h2>
+        <p>Estamos listos para asesorarlo en su próximo proyecto de ingeniería.</p>
+    </div>
+
+    <div class="contact-container">
+        <form action="https://formspree.io/f/xbdqagnd" method="POST" class="contact-form">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" name="name" placeholder="Ej: Juan Pérez" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="_replyto" placeholder="juan@ejemplo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono / WhatsApp</label>
+                <input type="tel" id="telefono" name="phone" placeholder="+56 9 1234 5678">
+            </div>
+
+            <div class="form-group">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="message" rows="5" placeholder="Cuéntenos sobre su requerimiento..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Enviar Mensaje</button>
+        </form>
+
+        <div class="contact-details">
+            <h3>Datos de Contacto</h3>
+            <p><strong>📍 Ubicación:</strong> General Mackenna 092 Temuco, Araucanía, Chile</p>
+            <p><strong>📧 Correo electrónico:</strong> climabarker@gmail.com</p>
+            <p><strong>⏰ Horario:</strong> Lunes a Viernes: 09:00 - 18:00</p>
+            
+            <div class="map-placeholder">
+                <p><small>Servicios en toda la Región de la Araucanía</small></p>
+            </div>
         </div>
-        <hr style="border: 0; border-top: 1px solid #444; margin: 2rem 0;">
+    </div>
+</section>
+
+	 
+	<footer id="contacto">
+	    <div class="contact-info">
+	    </div>
+	    <hr style="border: 0; border-top: 1px solid #444; margin: 2rem 0;">
         <p><small>&copy; 2026 Debarker Ingeniería. Todos los derechos reservados.</small></p>
-    </footer>
+    	</footer>
 
 </body>
 </html>
