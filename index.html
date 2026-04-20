@@ -38,6 +38,22 @@
             height: 50px;
         }
 
+        /* AJUSTE DE TAMAÑO DEL LOGO */
+        .nav-logo-container {
+            display: flex;
+            align-items: center;
+            /* Cambia este valor para ajustar el tamaño general */
+            height: 30px; 
+            padding: 5px 0;
+        }
+
+        .nav-logo-animated {
+            height: 100%; /* Mantiene el video al alto del contenedor */
+            width: auto;   /* Ajusta el ancho automáticamente para no deformar */
+            object-fit: contain;
+            border-radius: 8px; /* Opcional: suaviza un poco los bordes del video */
+        }
+
         .nav-links a {
             margin-left: 20px;
             text-decoration: none;
