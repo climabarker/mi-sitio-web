@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debarker - Sitio en Mantenimiento</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%; /* Asegura que el contenedor respire en pantallas pequeñas */
+        }
+
+        /* ESTILOS ADAPTATIVOS PARA EL LOGO */
+        .logo-container {
+            margin-bottom: 2rem; /* Más espacio debajo del logo */
+        }
+        .custom-logo {
+            /* ESTO HACE QUE EL LOGO SEA ADAPTATIVO */
+            max-width: 100%; /* No se sale de su contenedor parent */
+            height: auto;     /* Mantiene la proporción */
+            
+            /* Ajusta este valor si quieres un tamaño máximo por defecto */
+            width: 350px;     
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.8rem; /* Tamaño de fuente adaptable */
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .container { padding: 2rem; }
+        }
+
+        p {
+            line-height: 1.6;
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-container">
+            <img src="[DEBARKER] Logo-01.jpg" alt="Debarker Ingenieria Climatizacion" class="custom-logo">
+        </div>
+        <h1>Estamos mejorando</h1>
+        <p>Nuestro sitio web se encuentra actualmente en <strong>mantenimiento</strong> para ofrecerte una mejor experiencia en climatización. ¡Volveremos muy pronto!</p>
+        <div class="loader"></div>
+        <p><small>Gracias por tu paciencia.</small></p>
+    </div>
+
+</body>
+</html>
