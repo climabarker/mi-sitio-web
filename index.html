@@ -251,7 +251,55 @@
             grid-template-columns: 1fr;
             gap: 2rem;
         }
-    }	
+    }
+footer {
+        background: var(--dark-blue);
+        color: white;
+        padding: 3rem 10% 1.5rem;
+        text-align: center;
+    }
+
+    .footer-logo-container {
+        margin-bottom: 1.5rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer-logo-static {
+        height: 70px; /* Tamaño ajustado para imagen estática */
+        width: auto;
+        /* Si tu logo tiene fondo blanco, puedes quitar esta línea para que se vea original.
+           Si quieres que se vea blanco sobre el fondo oscuro, mantén el filtro: */
+        /* filter: brightness(0) invert(1); */
+        opacity: 0.9;
+        transition: opacity 0.3s;
+    }
+
+    .footer-logo-static:hover {
+        opacity: 1;
+    }
+
+    .footer-info p {
+        margin: 5px 0;
+        color: #bdc3c7;
+        font-size: 0.95rem;
+    }
+
+    .footer-divider {
+        border: 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        margin: 2rem 0;
+    }
+
+    .copyright {
+        color: #7f8c8d;
+    }
+
+    @media (max-width: 768px) {
+        .footer-logo-static {
+            height: 55px;
+        }
+    }
 	
     </style>
 </head>
@@ -370,12 +418,25 @@
 </section>
 
 	 
-	<footer id="contacto">
-	    <div class="contact-info">
-	    </div>
-	    <hr style="border: 0; border-top: 1px solid #444; margin: 2rem 0;">
-        <p><small>&copy; 2026 Debarker Ingeniería. Todos los derechos reservados.</small></p>
-    	</footer>
+	<footer id="footer-principal">
+    <div class="footer-content">
+        <div class="footer-logo-container">
+            <img src="logo_actualizado.jpeg" alt="Debarker Ingeniería Logo" class="footer-logo-static">
+        </div>
+
+        <div class="footer-info">
+            <p><strong>Debarker Ingeniería</strong></p>
+            <p>Especialistas en Climatización, Ventilación y Calefacción.</p>
+            <p>📍 Temuco, Región de la Araucanía, Chile</p>
+        </div>
+
+        <hr class="footer-divider">
+        
+        <p class="copyright">
+            <small>&copy; 2026 Debarker Ingeniería. Todos los derechos reservados.</small>
+        </p>
+    </div>
+</footer>
 
 </body>
 </html>
