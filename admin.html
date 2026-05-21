@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Debarker</title>
+    <link rel="icon" type="image/png" href="logo_actualizado.jpeg">
+    <style>
+        :root {
+            --primary-blue: #3498db;
+            --dark-blue: #2c3e50;
+            --accent-orange: #e67e22;
+            --light-gray: #f4f7f6;
+            --text-color: #333;
+            --danger-red: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+        }
+
+        /* Pantalla de Login */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-card h2 { color: var(--dark-blue); margin-bottom: 1.5rem; }
+
+        /* Panel Principal (Oculto inicialmente) */
+        .admin-dashboard {
+            display: none;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        header h1 { color: var(--dark-blue); margin: 0; }
+
+        .btn-logout {
+            background: transparent;
+            color: var(--danger-red);
+            border: 1px solid var(--danger-red);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-logout:hover { background: var(--danger-red); color: white; }
+
+        /* Formulario y Listado */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 2.5rem;
+        }
+
+        .form-section, .list-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-section h3, .list-section h3 { 
+            color: var(--dark-blue); 
+            margin-top: 0; 
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: bold; color: var(--dark-blue); }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; box-sizing: border-box;
+        }
+
+        .btn-action {
+            background: var(--primary-blue); color: white; border: none; padding: 12px 20px;
+            font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; transition: 0.3s;
+        }
+        .btn-action:hover { background: #2980b9; }
+
+        /* Tabla de Proyectos de Control */
+        .project-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .project-table th, .project-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        .project-table th { background-color: var(--light-gray); color: var(--dark-blue); }
+        
+        .btn-delete {
+            background: var(--danger-red); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;
+        }
+        .btn-delete:hover { background: #c0392b; }
+
+        .thumbnail { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; background: #ddd; }
+
+        @media (max-width: 768px) {
+            .admin-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. MÓDULO DE ACCESO (LOGIN) -->
+    <div class="login-container" id="login-module">
+        <div class="login-card">
+            <img src="logo_actualizado.jpeg" alt="Logo" style="height: 60px; margin-bottom: 1rem; border-radius: 8px;">
+            <h2>Control de Contenido</h2>
+            <form id="form-login">
+                <div class="form-group" style="text-align: left;">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="login-email" required placeholder="admin@climabarker.com">
+                </div>
+                <div class="form-group" style="text-align: left;">
+                    <label>Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-action" style="background-color: var(--dark-blue);">Ingresar al Panel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. PANEL DE CONTROL PRINCIPAL (DASHBOARD) -->
+    <div class="admin-dashboard" id="admin-module">
+        <header>
+            <div>
+                <h1>Debarker Ingeniería</h1>
+                <p style="margin: 4px 0 0 0; color: #777;">Gestor de Proyectos de Climatización</p>
+            </div>
+            <button class="btn-logout" id="btn-logout">Cerrar Sesión</button>
+        </header>
+
+        <div class="admin-grid">
+            <!-- Formulario de carga -->
+            <div class="form-section">
+                <h3>Agregar Nuevo Proyecto</h3>
+                <form id="form-proyecto">
+                    <div class="form-group">
+                        <label for="titulo">Título del Proyecto</label>
+                        <input type="text" id="titulo" required placeholder="Ej: Central de Frío - Supermercado">
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria">Categoría</label>
+                        <select id="categoria" required>
+                            <option value="Industrial">Industrial</option>
+                            <option value="HVAC">HVAC</option>
+                            <option value="Ingeniería">Ingeniería</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen_url">URL de la Imagen</label>
+                        <input type="url" id="imagen_url" required placeholder="https://link-de-la-imagen.com/foto.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción del Trabajo</label>
+                        <textarea id="descripcion" rows="4" required placeholder="Detalle técnico de la obra ejecutada..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-action">Publicar Proyecto</button>
+                </form>
+            </div>
+
+            <!-- Listado de control -->
+            <div class="list-section">
+                <h3>Proyectos Publicados</h3>
+                <div style="overflow-x: auto;">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Título / Categoría</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-proyectos-body">
+                            <!-- Inyección dinámica de filas de proyectos -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIGURACIÓN Y LÓGICA DE BACKEND -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // REEMPLAZA ESTOS DATOS CON LOS DE TU PROYECTO DE SUPABASE
+        const SUPABASE_URL = "https://ussqombvzuzvsopdzvao.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_4yu7Fr1C7tGPflmXbNXp5A_AuB1Eg5f";
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const loginModule = document.getElementById('login-module');
+        const adminModule = document.getElementById('admin-module');
+
+        // --- CONTROL DE AUTENTICACIÓN ---
+        document.getElementById('form-login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                alert("Acceso denegado: " + error.message);
+            } else {
+                verificarSesion();
+            }
+        });
+
+        document.getElementById('btn-logout').addEventListener('click', async () => {
+            await _supabase.auth.signOut();
+            verificarSesion();
+        });
+
+        async function verificarSesion() {
+            const { data: { session } } = await _supabase.auth.getSession();
+            if (session) {
+                loginModule.style.display = 'none';
+                adminModule.style.display = 'block';
+                renderizarProyectosAdmin();
+            } else {
+                loginModule.style.display = 'flex';
+                adminModule.style.display = 'none';
+            }
+        }
+
+        // --- GESTIÓN DE DATOS (CRUD) ---
+        // 1. Mostrar Proyectos existentes en la tabla de administración
+        async function renderizarProyectosAdmin() {
+            const tbody = document.getElementById('tabla-proyectos-body');
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Cargando lista de obras...</td></tr>';
+
+            const { data: proyectos, error } = await _supabase
+                .from('proyectos')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                tbody.innerHTML = '<tr><td colspan="3" style="color:red;">Error de conexión.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            if(proyectos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#888;">No tienes proyectos cargados todavía.</td></tr>';
+            }
+
+            proyectos.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <img class="thumbnail" src="${p.imagen_url}" alt="" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'><rect width=\'50\' height=\'50\' fill=\'%23eee\'/><text x=\'25\' y=\'30\' font-size=\'10\' text-anchor=\'middle\' fill=\'%23666\'>Sin foto</text></svg>'">
+                    </td>
+                    <td>
+                        <strong style="color:var(--dark-blue);">${p.titulo}</strong><br>
+                        <span style="font-size:0.85rem; color:var(--primary-blue); font-weight:bold;">${p.categoria}</span>
+                    </td>
+                    <td>
+                        <button class="btn-delete" onclick="eliminarProyecto('${p.id}')">Eliminar</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 2. Crear / Publicar Proyecto
+        document.getElementById('form-proyecto').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const nuevoProyecto = {
+                titulo: document.getElementById('titulo').value,
+                categoria: document.getElementById('categoria').value,
+                imagen_url: document.getElementById('imagen_url').value,
+                descripcion: document.getElementById('descripcion').value
+            };
+
+            const { error } = await _supabase.from('proyectos').insert([nuevoProyecto]);
+
+            if (error) {
+                alert("Error al subir el proyecto: " + error.message);
+            } else {
+                alert("¡Proyecto publicado con éxito!");
+                document.getElementById('form-proyecto').reset();
+                renderizarProyectosAdmin();
+            }
+        });
+
+        // 3. Eliminar Proyecto
+        window.eliminarProyecto = async (id) => {
+            if (confirm("¿Está seguro de que desea eliminar permanentemente este proyecto de la web?")) {
+                const { error } = await _supabase.from('proyectos').delete().eq('id', id);
+                if (error) {
+                    alert("Error al eliminar: " + error.message);
+                } else {
+                    renderizarProyectosAdmin();
+                }
+            }
+        }
+
+        // Ejecutar verificación de sesión al abrir el panel
+        document.addEventListener('DOMContentLoaded', verificarSesion);
+    </script>
+</body>
+</html>
