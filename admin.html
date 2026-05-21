@@ -210,10 +210,12 @@
     <!-- CONFIGURACIÓN Y LÓGICA DE BACKEND -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // REEMPLAZA ESTOS DATOS CON LOS DE TU PROYECTO DE SUPABASE
+        // CONFIGURACIÓN Y LÓGICA DE BACKEND CORREGIDA
         const SUPABASE_URL = "https://ussqombvzuzvsopdzvao.supabase.co";
         const SUPABASE_KEY = "sb_publishable_4yu7Fr1C7tGPflmXbNXp5A_AuB1Eg5f";
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        // Corrección de variable global para evitar choques
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         const loginModule = document.getElementById('login-module');
         const adminModule = document.getElementById('admin-module');
@@ -224,7 +226,7 @@
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
-            const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
             if (error) {
                 alert("Acceso denegado: " + error.message);
@@ -234,12 +236,12 @@
         });
 
         document.getElementById('btn-logout').addEventListener('click', async () => {
-            await _supabase.auth.signOut();
+            await supabaseClient.auth.signOut();
             verificarSesion();
         });
 
         async function verificarSesion() {
-            const { data: { session } } = await _supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
             if (session) {
                 loginModule.style.display = 'none';
                 adminModule.style.display = 'block';
@@ -251,24 +253,26 @@
         }
 
         // --- GESTIÓN DE DATOS (CRUD) ---
-        // 1. Mostrar Proyectos existentes en la tabla de administración
         async function renderizarProyectosAdmin() {
             const tbody = document.getElementById('tabla-proyectos-body');
             tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Cargando lista de obras...</td></tr>';
 
-            const { data: proyectos, error } = await _supabase
+            // Usando la variable correcta para consultar
+            const { data: proyectos, error } = await supabaseClient
                 .from('proyectos')
                 .select('*')
                 .order('created_at', { ascending: false });
 
             if (error) {
-                tbody.innerHTML = '<tr><td colspan="3" style="color:red;">Error de conexión.</td></tr>';
+                console.error("Error detallado de Supabase:", error);
+                tbody.innerHTML = '<tr><td colspan="3" style="color:red; text-align:center;">Error de conexión al cargar datos.</td></tr>';
                 return;
             }
 
             tbody.innerHTML = '';
-            if(proyectos.length === 0) {
+            if (proyectos.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#888;">No tienes proyectos cargados todavía.</td></tr>';
+                return;
             }
 
             proyectos.forEach(p => {
@@ -289,7 +293,7 @@
             });
         }
 
-        // 2. Crear / Publicar Proyecto
+        // Crear / Publicar Proyecto
         document.getElementById('form-proyecto').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -300,7 +304,7 @@
                 descripcion: document.getElementById('descripcion').value
             };
 
-            const { error } = await _supabase.from('proyectos').insert([nuevoProyecto]);
+            const { error } = await supabaseClient.from('proyectos').insert([nuevoProyecto]);
 
             if (error) {
                 alert("Error al subir el proyecto: " + error.message);
@@ -311,10 +315,10 @@
             }
         });
 
-        // 3. Eliminar Proyecto
+        // Eliminar Proyecto
         window.eliminarProyecto = async (id) => {
             if (confirm("¿Está seguro de que desea eliminar permanentemente este proyecto de la web?")) {
-                const { error } = await _supabase.from('proyectos').delete().eq('id', id);
+                const { error } = await supabaseClient.from('proyectos').delete().eq('id', id);
                 if (error) {
                     alert("Error al eliminar: " + error.message);
                 } else {
@@ -323,7 +327,7 @@
             }
         }
 
-        // Ejecutar verificación de sesión al abrir el panel
+        // Ejecutar al cargar la página
         document.addEventListener('DOMContentLoaded', verificarSesion);
     </script>
 </body>
