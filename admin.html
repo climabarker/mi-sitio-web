@@ -13,6 +13,7 @@
             --light-gray: #f4f7f6;
             --text-color: #333;
             --danger-red: #e74c3c;
+            --success-green: #2ecc71;
         }
 
         body {
@@ -43,10 +44,10 @@
 
         .login-card h2 { color: var(--dark-blue); margin-bottom: 1.5rem; }
 
-        /* Panel Principal (Oculto inicialmente) */
+        /* Panel Principal */
         .admin-dashboard {
             display: none;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 5%;
         }
@@ -77,7 +78,7 @@
         /* Formulario y Listado */
         .admin-grid {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
+            grid-template-columns: 1.21fr 1.5fr;
             gap: 2.5rem;
         }
 
@@ -86,6 +87,7 @@
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
         }
 
         .form-section h3, .list-section h3 { 
@@ -108,6 +110,11 @@
         }
         .btn-action:hover { background: #2980b9; }
 
+        .btn-success {
+            background: var(--success-green);
+        }
+        .btn-success:hover { background: #27ae60; }
+
         /* Tabla de Proyectos de Control */
         .project-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
         .project-table th, .project-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
@@ -120,7 +127,7 @@
 
         .thumbnail { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; background: #ddd; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .admin-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -157,36 +164,59 @@
         </header>
 
         <div class="admin-grid">
-            <!-- Formulario de carga -->
-            <div class="form-section">
-                <h3>Agregar Nuevo Proyecto</h3>
-                <form id="form-proyecto">
-                    <div class="form-group">
-                        <label for="titulo">Título del Proyecto</label>
-                        <input type="text" id="titulo" required placeholder="Ej: Central de Frío - Supermercado">
-                    </div>
-                    <div class="form-group">
-                        <label for="categoria">Categoría</label>
-                        <select id="categoria" required>
-                            <option value="Industrial">Industrial</option>
-                            <option value="HVAC">HVAC</option>
-                            <option value="Ingeniería">Ingeniería</option>
-                            <option value="Mantenimiento">Mantenimiento</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="imagen_url">URL de la Imagen</label>
-                        <input type="url" id="imagen_url" required placeholder="https://link-de-la-imagen.com/foto.jpg">
-                    </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripción del Trabajo</label>
-                        <textarea id="descripcion" rows="4" required placeholder="Detalle técnico de la obra ejecutada..."></textarea>
-                    </div>
-                    <button type="submit" class="btn-action">Publicar Proyecto</button>
-                </form>
+            <!-- COLUMNA IZQUIERDA: FORMULARIOS -->
+            <div>
+                <!-- Formulario de Proyectos -->
+                <div class="form-section">
+                    <h3>Agregar Nuevo Proyecto</h3>
+                    <form id="form-proyecto">
+                        <div class="form-group">
+                            <label for="titulo">Título del Proyecto</label>
+                            <input type="text" id="titulo" required placeholder="Ej: Central de Frío - Supermercado">
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoría</label>
+                            <select id="categoria" required>
+                                <option value="Industrial">Industrial</option>
+                                <option value="HVAC">HVAC</option>
+                                <option value="Ingeniería">Ingeniería</option>
+                                <option value="Mantenimiento">Mantenimiento</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="imagen_url">URL de la Imagen</label>
+                            <input type="url" id="imagen_url" required placeholder="https://link-de-la-imagen.com/foto.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción del Trabajo</label>
+                            <textarea id="descripcion" rows="4" required placeholder="Detalle técnico de la obra ejecutada..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-action">Publicar Proyecto</button>
+                    </form>
+                </div>
+
+                <!-- Formulario de Contacto -->
+                <div class="form-section">
+                    <h3>Información de Contacto Corporativo</h3>
+                    <form id="form-contacto">
+                        <div class="form-group">
+                            <label for="contacto-ubicacion">Ubicación / Dirección</label>
+                            <input type="text" id="contacto-ubicacion" required placeholder="Ej: Av. Providencia 1234, Santiago">
+                        </div>
+                        <div class="form-group">
+                            <label for="contacto-correo">Correo Electrónico</label>
+                            <input type="email" id="contacto-correo" required placeholder="Ej: contacto@debarker.cl">
+                        </div>
+                        <div class="form-group">
+                            <label for="contacto-horario">Horario de Atención</label>
+                            <input type="text" id="contacto-horario" required placeholder="Ej: Lun a Vie: 9:00 a 18:00 hrs">
+                        </div>
+                        <button type="submit" class="btn-action btn-success">Actualizar Datos de Contacto</button>
+                    </form>
+                </div>
             </div>
 
-            <!-- Listado de control -->
+            <!-- COLUMNA DERECHA: TABLA DE CONTROL -->
             <div class="list-section">
                 <h3>Proyectos Publicados</h3>
                 <div style="overflow-x: auto;">
@@ -199,7 +229,7 @@
                             </tr>
                         </thead>
                         <tbody id="tabla-proyectos-body">
-                            <!-- Inyección dinámica de filas de proyectos -->
+                            <!-- Inyección dinámica de filas -->
                         </tbody>
                     </table>
                 </div>
@@ -210,11 +240,9 @@
     <!-- CONFIGURACIÓN Y LÓGICA DE BACKEND -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // CONFIGURACIÓN Y LÓGICA DE BACKEND CORREGIDA
         const SUPABASE_URL = "https://ussqombvzuzvsopdzvao.supabase.co";
         const SUPABASE_KEY = "sb_publishable_4yu7Fr1C7tGPflmXbNXp5A_AuB1Eg5f";
         
-        // Corrección de variable global para evitar choques
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         const loginModule = document.getElementById('login-module');
@@ -246,59 +274,54 @@
                 loginModule.style.display = 'none';
                 adminModule.style.display = 'block';
                 renderizarProyectosAdmin();
+                cargarDatosContactoAdmin(); // Carga la info de contacto al iniciar
             } else {
                 loginModule.style.display = 'flex';
                 adminModule.style.display = 'none';
             }
         }
 
+        // --- GESTIÓN DE PROYECTOS ---
         async function renderizarProyectosAdmin() {
-    const tbody = document.getElementById('tabla-proyectos-body');
-    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Cargando lista de obras...</td></tr>';
+            const tbody = document.getElementById('tabla-proyectos-body');
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Cargando lista de obras...</td></tr>';
 
-    // Eliminamos el .order() temporalmente para evitar el Error 400
-    const { data: proyectos, error } = await supabaseClient
-        .from('proyectos')
-        .select('*');
+            const { data: proyectos, error } = await supabaseClient
+                .from('proyectos')
+                .select('*');
 
-    if (error) {
-        console.error("Error detallado de Supabase:", error);
-        tbody.innerHTML = `<tr><td colspan="3" style="color:red; text-align:center;">Error: ${error.message}</td></tr>`;
-        return;
-    }
+            if (error) {
+                console.error("Error detallado de Supabase:", error);
+                tbody.innerHTML = `<tr><td colspan="3" style="color:red; text-align:center;">Error: ${error.message}</td></tr>`;
+                return;
+            }
 
-    tbody.innerHTML = '';
-    if (proyectos.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#888;">No tienes proyectos cargados todavía.</td></tr>';
-        return;
-    }
+            tbody.innerHTML = '';
+            if (proyectos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#888;">No tienes proyectos cargados todavía.</td></tr>';
+                return;
+            }
 
-    // Si tu tabla usa 'id' creados de forma secuencial o fechas con otro nombre, 
-    // podemos ordenarlos manualmente aquí en JavaScript si es necesario:
-    // proyectos.sort((a, b) => b.id - a.id); 
+            proyectos.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <img class="thumbnail" src="${p.imagen_url}" alt="" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'><rect width=\'50\' height=\'50\' fill=\'%23eee\'/><text x=\'25\' y=\'30\' font-size=\'10\' text-anchor=\'middle\' fill=\'%23666\'>Sin foto</text></svg>'">
+                    </td>
+                    <td>
+                        <strong style="color:var(--dark-blue);">${p.titulo}</strong><br>
+                        <span style="font-size:0.85rem; color:var(--primary-blue); font-weight:bold;">${p.categoria}</span>
+                    </td>
+                    <td>
+                        <button class="btn-delete" onclick="eliminarProyecto('${p.id}')">Eliminar</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
-    proyectos.forEach(p => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>
-                <img class="thumbnail" src="${p.imagen_url}" alt="" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'><rect width=\'50\' height=\'50\' fill=\'%23eee\'/><text x=\'25\' y=\'30\' font-size=\'10\' text-anchor=\'middle\' fill=\'%23666\'>Sin foto</text></svg>'">
-            </td>
-            <td>
-                <strong style="color:var(--dark-blue);">${p.titulo}</strong><br>
-                <span style="font-size:0.85rem; color:var(--primary-blue); font-weight:bold;">${p.categoria}</span>
-            </td>
-            <td>
-                <button class="btn-delete" onclick="eliminarProyecto('${p.id}')">Eliminar</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-        // Crear / Publicar Proyecto
         document.getElementById('form-proyecto').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const nuevoProyecto = {
                 titulo: document.getElementById('titulo').value,
                 categoria: document.getElementById('categoria').value,
@@ -317,7 +340,6 @@
             }
         });
 
-        // Eliminar Proyecto
         window.eliminarProyecto = async (id) => {
             if (confirm("¿Está seguro de que desea eliminar permanentemente este proyecto de la web?")) {
                 const { error } = await supabaseClient.from('proyectos').delete().eq('id', id);
@@ -329,7 +351,42 @@
             }
         }
 
-        // Ejecutar al cargar la página
+        // --- GESTIÓN DE CONTACTO ---
+        async function cargarDatosContactoAdmin() {
+            const { data, error } = await supabaseClient
+                .from('contacto')
+                .select('*')
+                .eq('id', 1)
+                .single();
+
+            if (data) {
+                document.getElementById('contacto-ubicacion').value = data.ubicacion;
+                document.getElementById('contacto-correo').value = data.correo;
+                document.getElementById('contacto-horario').value = data.horario;
+            }
+        }
+
+        document.getElementById('form-contacto').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const nuevosDatos = {
+                ubicacion: document.getElementById('contacto-ubicacion').value,
+                correo: document.getElementById('contacto-correo').value,
+                horario: document.getElementById('contacto-horario').value
+            };
+
+            const { error } = await supabaseClient
+                .from('contacto')
+                .update(nuevosDatos)
+                .eq('id', 1);
+
+            if (error) {
+                alert("Error al actualizar los datos: " + error.message);
+            } else {
+                alert("¡Datos de contacto actualizados exitosamente en la web!");
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', verificarSesion);
     </script>
 </body>
