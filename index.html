@@ -300,7 +300,58 @@ footer {
             height: 55px;
         }
     }
-	
+	/* CONTENEDOR DE PROYECTOS CON SCROLL HORIZONTAL */
+    .projects-slider-container {
+        width: 100%;
+        overflow-x: auto; /* Permite el scroll horizontal */
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+        padding-bottom: 15px; /* Espacio para que no se corte la sombra de las cards */
+    }
+
+    /* Ocultar la barra de scroll por estética (opcional) */
+    .projects-slider-container::-webkit-scrollbar {
+        height: 6px;
+    }
+    .projects-slider-container::-webkit-scrollbar-thumb {
+        background: var(--primary-blue);
+        border-radius: 10px;
+    }
+    .projects-slider-container::-webkit-scrollbar-track {
+        background: #eee;
+    }
+
+    .projects-grid-horizontal {
+        display: flex; /* Cambiamos de grid a flex para la fila horizontal */
+        gap: 2rem;
+    }
+
+    .project-card-slider {
+        flex: 0 0 calc(33.333% - 1.34rem); /* Fuerza a que se muestren exactamente 3 tarjetas */
+        min-width: 300px; /* Evita que se encojan demasiado en pantallas pequeñas */
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .project-card-slider:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Ajuste responsivo: En tablets y móviles se adaptará automáticamente mostrando menos de 3 */
+    @media (max-width: 1024px) {
+        .project-card-slider {
+            flex: 0 0 calc(50% - 1rem); /* Muestra 2 tarjetas en pantallas medianas */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .project-card-slider {
+            flex: 0 0 85%; /* Muestra 1 tarjeta y deja ver un pedazo de la siguiente en móviles */
+        }
+    }
     </style>
 </head>
 <body>
@@ -347,6 +398,25 @@ footer {
         </div>
     </section>
 
+	<section id="proyectos" style="background-color: var(--light-gray);">
+    <div class="section-title">
+        <h2>Nuestros Proyectos</h2>
+        <p style="max-width: 600px; margin: 0 auto; text-align: center; color: #666;">
+            Conozca algunos de nuestros trabajos en instalación, montaje y diseño de sistemas térmicos.
+        </p>
+    </div>
+    
+    <div class="projects-slider-container">
+        <!-- El ID 'contenedor-proyectos' es clave para que JavaScript inyecte los datos del gestor -->
+        <div class="projects-grid-horizontal" id="contenedor-proyectos">
+            <!-- Carga inicial estática (Se reemplazará automáticamente cuando conectes la base de datos) -->
+            <div class="project-card-slider">
+                <div class="project-image-placeholder">[ Cargando Proyectos... ]</div>
+            </div>
+        </div>
+    </div>
+</section>
+	
     <section id="marcas" style="background-color: white;">
         <div class="section-title">
             <h2>Trabajamos con Equipos Líderes</h2>
