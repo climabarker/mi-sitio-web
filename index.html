@@ -553,9 +553,9 @@ footer {
 
         <div class="contact-details">
             <h3>Datos de Contacto</h3>
-            <p><strong>📍 Ubicación:</strong> General Mackenna 092 Temuco, Araucanía, Chile</p>
-            <p><strong>📧 Correo electrónico:</strong> climabarker@gmail.com</p>
-            <p><strong>⏰ Horario:</strong> Lunes a Viernes: 09:00 - 18:00</p>
+            <p><strong>📍 Ubicación:</strong> <span id="web-ubicacion">Cargando...</span></p>
+            <p><strong>📧 Correo electrónico:</strong> <span id="web-correo">Cargando...</span></p>
+            <p><strong>⏰ Horario:</strong> <span id="web-horario">Cargando...</span></p>
             
             <div class="map-placeholder">
                 <p><small>Servicios desde la Región del BioBío hacia el Sur</small></p>
@@ -633,9 +633,33 @@ footer {
           contenedor.appendChild(card);
       });
   }
+	
+	// Agrega esta función dentro de los scripts de tu index.html
+async function cargarContactoDinamico() {
+    const { data, error } = await _supabase
+        .from('contacto')
+        .select('*')
+        .eq('id', 1)
+        .single();
 
-  // Ejecutar la función al cargar la página
-  document.addEventListener('DOMContentLoaded', cargarProyectos);
+    if (error) {
+        console.error("Error cargando datos de contacto:", error);
+        return;
+    }
+
+    if (data) {
+        // Vincula los datos con los IDs correspondientes en tu HTML
+        if(document.getElementById('web-ubicacion')) document.getElementById('web-ubicacion').innerText = data.ubicacion;
+        if(document.getElementById('web-correo')) document.getElementById('web-correo').innerText = data.correo;
+        if(document.getElementById('web-horario')) document.getElementById('web-horario').innerText = data.horario;
+    }
+}
+
+  // Asegúrate de llamarla al cargar la página, por ejemplo:
+document.addEventListener('DOMContentLoaded', () => {
+    cargarProyectos();         // Tu función existente
+    cargarContactoDinamico();  // La nueva función
+});
 </script>
 </body>
 </html>
