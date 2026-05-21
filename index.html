@@ -508,5 +508,57 @@ footer {
     </div>
 </footer>
 
+	<!-- Librería oficial de Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // 1. Configura tus credenciales (Supabase te las da en la configuración de la API de tu proyecto)
+  const SUPABASE_URL = "TU_SUPABASE_URL_AQUÍ";
+  const SUPABASE_KEY = "TU_SUPABASE_ANON_KEY_AQUÍ";
+  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // 2. Función para leer los datos de la base de datos y renderizarlos
+  async function cargarProyectos() {
+      const { data: proyectos, error } = await _supabase
+          .from('proyectos')
+          .select('*')
+          .order('created_at', { ascending: false }); // Muestra los más nuevos primero
+
+      if (error) {
+          console.error("Error cargando proyectos:", error);
+          return;
+      }
+
+      const contenedor = document.getElementById('contenedor-proyectos');
+      contenedor.innerHTML = ''; // Limpiar el cargando...
+
+      // Si no hay proyectos ingresados en el gestor
+      if (proyectos.length === 0) {
+          contenedor.innerHTML = '<p style="text-align:center; width:100%;">Próximamente compartiremos nuestros proyectos.</p>';
+          return;
+      }
+
+      // 3. Crear el HTML dinámicamente para cada proyecto ingresado
+      proyectos.forEach(proyecto => {
+          const card = document.createElement('div');
+          card.className = 'project-card-slider';
+          
+          card.innerHTML = `
+              <div class="project-image-placeholder">
+                  <img src="${proyecto.imagen_url}" alt="${proyecto.titulo}" onerror="this.style.display='none'; this.parentNode.innerHTML='[ ${proyecto.titulo} ]'">
+              </div>
+              <div class="project-content">
+                  <span class="project-tag">${proyecto.categoria}</span>
+                  <h3>${proyecto.titulo}</h3>
+                  <p>${proyecto.descripcion}</p>
+              </div>
+          `;
+          contenedor.appendChild(card);
+      });
+  }
+
+  // Ejecutar la función al cargar la página
+  document.addEventListener('DOMContentLoaded', cargarProyectos);
+</script>
 </body>
 </html>
