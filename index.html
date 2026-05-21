@@ -352,6 +352,82 @@ footer {
             flex: 0 0 85%; /* Muestra 1 tarjeta y deja ver un pedazo de la siguiente en móviles */
         }
     }
+
+		/* Contenedor del control deslizante / rejilla */
+.projects-grid-horizontal {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px 5px;
+    scroll-behavior: smooth;
+}
+
+/* Tarjeta de Proyecto: Forzamos una altura y un ancho constante */
+.project-card-slider {
+    min-width: 300px;
+    max-width: 320px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Mantiene los botones/textos alineados abajo */
+}
+
+/* Contenedor de la Imagen: Controla la altura máxima del área visual */
+.project-image-placeholder {
+    width: 100%;
+    height: 200px; /* Altura fija para que todas las fotos midan lo mismo */
+    background-color: #eee;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* La Imagen Dinámica: Truco clave para que no se deforme */
+.project-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta y centra la imagen de forma inteligente sin estirarla */
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto opcional al pasar el mouse por la tarjeta */
+.project-card-slider:hover .project-image-placeholder img {
+    transform: scale(1.05); /* Zoom sutil */
+}
+
+/* Contenido de texto debajo de la imagen */
+.project-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.project-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--primary-blue, #3498db);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.project-content h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.25rem;
+    color: #2c3e50;
+}
+
+.project-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
     </style>
 </head>
 <body>
