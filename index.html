@@ -66,34 +66,48 @@
             color: var(--primary-blue);
         }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), 
-                        url('https://images.unsplash.com/photo-1581094288338-2314dddb7ec3?auto=format&fit=crop&q=80&w=1200');
-            background-size: cover;
-            background-position: center;
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 0 20px;
-			width: 100%;
-        }
-
-		/* Estilos para que la imagen sea adaptable */
-		.hero-image {
-		    width: 100%;          /* Ocupa el 100% del ancho de la sección */
-		    max-width: 1200px;    /* Límite máximo opcional para que no se pixele en pantallas gigantes */
-		    height: auto;         /* Mantiene la proporción original de la imagen sin deformarla */
-		    display: block;
-		    margin-bottom: 20px;  /* Espacio de separación con el título h1 */
+        /* Configuración adaptable de la sección Hero */
+		.hero {
+		    position: relative;
+		    width: 100%;
+		    min-height: 80vh; /* Ocupa el 80% de la altura de la ventana del navegador */
+		    
+		    /* Vinculación de tu imagen como fondo */
+		    background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('Imagen_generica clima_industrial.png');
+		    background-size: cover;      /* Fuerza a la imagen a cubrir todo el espacio disponible */
+		    background-position: center;  /* Centra el enfoque de la fotografía */
+		    background-repeat: no-repeat;
+		    
+		    /* Centrado absoluto del contenido */
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    text-align: center;
+		    padding: 40px 20px;
+		    box-sizing: border-box;
 		}
-
-		.hero h1 { font-size: 3rem; margin-bottom: 10px; }
-        .hero p { font-size: 1.2rem; max-width: 700px; }
+		
+		/* Contenedor interno del texto para asegurar que no se desborde */
+		.hero-content {
+		    max-width: 800px; /* Evita que las líneas de texto sean demasiado largas en pantallas anchas */
+		    width: 100%;
+		    color: #ffffff;   /* Fuerza el color del texto a blanco para contrastar con el fondo */
+		}
+		
+		/* Ajustes tipográficos básicos */
+		.hero h1 {
+		    font-size: 2.5rem;
+		    margin-bottom: 20px;
+		    font-weight: 700;
+		}
+		
+		.hero p {
+		    font-size: 1.2rem;
+		    margin-bottom: 30px;
+		    line-height: 1.5;
+		}
+		
+		
 
         /* Secciones */
         section { padding: 4rem 10%; }
@@ -138,13 +152,21 @@
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
+            .hero h1 {
+		        font-size: 1.8rem; /* Tipografía más pequeña y cómoda para móviles */
+		    }
+			.hero {
+		        min-height: 60vh; /* Reduce levemente la altura en pantallas pequeñas de celulares */
+		    }
             nav { flex-direction: column; }
             .nav-links { margin-top: 1rem; }
 			.hero-image {
 		        height: 250px;    /* Reduce la altura en pantallas más pequeñas para que no ocupe demasiado espacio */
 		    }
-        }
+			.hero p {
+		        font-size: 1rem;
+		    }
+	     }
 			
 	/* SECCIÓN DE MARCAS AJUSTADA */
     #marcas {
@@ -462,13 +484,12 @@ footer {
         </div>
     </nav>
 
-    <header class="hero" id="inicio">
-    <!-- IMAGEN AÑADIDA AQUÍ -->
-    <img src="Imagen_generica clima_industrial.png" alt="Ingenieros de Climatización trabajando en una azotea de Santiago de Chile" class="hero-image">
-    
-    <h1>Ingeniería en Climatización</h1>
-    <p>Soluciones integrales en refrigeración industrial y comercial con los más altos estándares de calidad.</p>
-    <a href="#contacto" class="btn-contact">Solicitar Presupuesto</a>
+	<header class="hero" id="inicio">
+    <div class="hero-content">
+        <h1>Ingeniería en Climatización</h1>
+        <p>Soluciones integrales en refrigeración industrial y comercial con los más altos estándares de calidad.</p>
+        <a href="#contacto" class="btn-contact">Solicitar Presupuesto</a>
+    </div>
 	</header>
 
     <section id="servicios">
