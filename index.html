@@ -83,12 +83,13 @@
 			width: 100%;
         }
 
+		/* Estilos para que la imagen sea adaptable */
 		.hero-image {
-	    width: 100%;
-	    height: 400px;        /* Altura fija deseada para pantallas de computadora */
-	    object-fit: cover;    /* Recorta y llena el espacio como si fuera un fondo, sin deformarse */
-	    object-position: center; /* Centra el enfoque de la foto */
-	    margin-bottom: 20px;
+		    width: 100%;          /* Ocupa el 100% del ancho de la sección */
+		    max-width: 1200px;    /* Límite máximo opcional para que no se pixele en pantallas gigantes */
+		    height: auto;         /* Mantiene la proporción original de la imagen sin deformarla */
+		    display: block;
+		    margin-bottom: 20px;  /* Espacio de separación con el título h1 */
 		}
 
 		.hero h1 { font-size: 3rem; margin-bottom: 10px; }
