@@ -80,9 +80,18 @@
             color: white;
             text-align: center;
             padding: 0 20px;
+			width: 100%;
         }
 
-        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+		.hero-image {
+	    width: 100%;
+	    height: 400px;        /* Altura fija deseada para pantallas de computadora */
+	    object-fit: cover;    /* Recorta y llena el espacio como si fuera un fondo, sin deformarse */
+	    object-position: center; /* Centra el enfoque de la foto */
+	    margin-bottom: 20px;
+		}
+
+		.hero h1 { font-size: 3rem; margin-bottom: 10px; }
         .hero p { font-size: 1.2rem; max-width: 700px; }
 
         /* Secciones */
@@ -131,8 +140,11 @@
             .hero h1 { font-size: 2rem; }
             nav { flex-direction: column; }
             .nav-links { margin-top: 1rem; }
+			.hero-image {
+		        height: 250px;    /* Reduce la altura en pantallas más pequeñas para que no ocupe demasiado espacio */
+		    }
         }
-	
+			
 	/* SECCIÓN DE MARCAS AJUSTADA */
     #marcas {
         background-color: white;
