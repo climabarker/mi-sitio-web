@@ -512,13 +512,30 @@ footer {
         </div>
     </section>
 
-	<section id="proyectos" style="background-color: var(--light-gray);">
-    <div class="section-title">
+	<section id="proyectos" style="background-color: var(--light-gray); padding: 60px 0; overflow: hidden;">
+    <div class="section-title" style="text-align: center; margin-bottom: 40px;">
         <h2>Nuestros Proyectos</h2>
-        <p style="max-width: 600px; margin: 0 auto; text-align: center; color: #666;">
+        <p style="max-width: 600px; margin: 0 auto; color: #666;">
             Conozca algunos de nuestros trabajos en instalación, montaje y diseño de sistemas térmicos.
         </p>
     </div>
+    
+    <div class="carousel-wrapper" style="position: relative; max-width: 1100px; margin: 0 auto; padding: 0 40px;">
+        
+        <button class="carousel-btn btn-left" id="btn-carousel-left" aria-label="Anterior">&#10094;</button>
+        
+        <div class="projects-carousel-window">
+            <div class="projects-grid-horizontal" id="contenedor-proyectos">
+                <div class="project-card-slider">
+                    <div class="project-image-placeholder">Cargando Proyectos...</div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="carousel-btn btn-right" id="btn-carousel-right" aria-label="Siguiente">&#10095;</button>
+        
+    </div>
+</section>
     
     <div class="projects-slider-container">
         <!-- El ID 'contenedor-proyectos' es clave para que JavaScript inyecte los datos del gestor -->
