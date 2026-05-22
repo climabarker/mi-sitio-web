@@ -356,114 +356,133 @@ footer {
         background: #eee;
     }
 
-    .projects-grid-horizontal {
-        display: flex; /* Cambiamos de grid a flex para la fila horizontal */
-        gap: 2rem;
-    }
-
-    .project-card-slider {
-        flex: 0 0 calc(33.333% - 1.34rem); /* Fuerza a que se muestren exactamente 3 tarjetas */
-        min-width: 300px; /* Evita que se encojan demasiado en pantallas pequeñas */
-        background: white;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        transition: transform 0.3s ease;
-    }
+	/* Tarjeta de Proyecto: Calculada matemáticamente para mostrar exactamente 3 */
+	.project-card-slider {
+	    /* (100% del ancho - espacio de los 2 gaps) / 3 tarjetas */
+	    flex: 0 0 calc((100% - (24px * 2)) / 3); 
+	    box-sizing: border-box;
+	    background: #ffffff;
+	    border-radius: 8px;
+	    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+	    overflow: hidden;
+	    display: flex;
+	    flex-direction: column;
+	}    
 
     .project-card-slider:hover {
         transform: translateY(-5px);
     }
 
-    /* Ajuste responsivo: En tablets y móviles se adaptará automáticamente mostrando menos de 3 */
-    @media (max-width: 1024px) {
-        .project-card-slider {
-            flex: 0 0 calc(50% - 1rem); /* Muestra 2 tarjetas en pantallas medianas */
-        }
-    }
+	/* ADAPTACIÓN PARA MÓVILES (Celulares) */
+	@media (max-width: 900px) {
+	    /* En pantallas medianas muestra 2 tarjetas */
+	    .project-card-slider {
+	        flex: 0 0 calc((100% - 24px) / 2);
+	    }
+	}
 
-    @media (max-width: 768px) {
-        .project-card-slider {
-            flex: 0 0 85%; /* Muestra 1 tarjeta y deja ver un pedazo de la siguiente en móviles */
-        }
-    }
+	@media (max-width: 600px) {
+	    /* En celulares muestra 1 sola tarjeta completa para que se lea bien */
+	    .project-card-slider {
+	        flex: 0 0 100%;
+	    }
+	    .carousel-btn { display: none; } /* En celular es mejor deslizar con el dedo */
+	    .projects-carousel-window {
+	        overflow-x: auto; /* Permite arrastrar con el dedo */
+	        scroll-behavior: smooth;
+	    }
+	}
 
-		/* Contenedor del control deslizante / rejilla */
-.projects-grid-horizontal {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding: 20px 5px;
-    scroll-behavior: smooth;
-}
+	/* Tira horizontal que contiene todas las tarjetas */
+	.projects-grid-horizontal {
+	    display: flex;
+	    gap: 24px; /* Espacio entre tarjetas */
+	    transition: transform 0.4s ease-in-out; /* Animación suave al deslizar */
+	    will-change: transform;
+	    padding: 10px 0;
+	}
 
-/* Tarjeta de Proyecto: Forzamos una altura y un ancho constante */
-.project-card-slider {
-    min-width: 300px;
-    max-width: 320px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Mantiene los botones/textos alineados abajo */
-}
+	/* Contenedor de la foto con altura fija */
+	.project-image-placeholder {
+	    width: 100%;
+	    height: 220px; /* Ajusta esta altura a tu gusto */
+	    background-color: #eee;
+	    overflow: hidden;
+	}
 
-/* Contenedor de la Imagen: Controla la altura máxima del área visual */
-.project-image-placeholder {
-    width: 100%;
-    height: 200px; /* Altura fija para que todas las fotos midan lo mismo */
-    background-color: #eee;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+	/* Ajuste perfecto de la imagen dinámica */
+	.project-image-placeholder img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: cover; /* Recorta y centra la imagen sin deformarla ni estirarla */
+	    object-position: center;
+	    transition: transform 0.3s ease;
+	    display: block;
+	}
 
-/* La Imagen Dinámica: Truco clave para que no se deforme */
-.project-image-placeholder img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Recorta y centra la imagen de forma inteligente sin estirarla */
-    object-position: center;
-    transition: transform 0.3s ease;
-}
+	.project-card-slider:hover .project-image-placeholder img {
+	    transform: scale(1.04); /* Efecto sutil de zoom al pasar el mouse */
+	}
 
-/* Efecto opcional al pasar el mouse por la tarjeta */
-.project-card-slider:hover .project-image-placeholder img {
-    transform: scale(1.05); /* Zoom sutil */
-}
+	/* Textos dentro de la tarjeta */
+	.project-content {
+	    padding: 20px;
+	    display: flex;
+	    flex-direction: column;
+	    flex-grow: 1;
+	}
 
-/* Contenido de texto debajo de la imagen */
-.project-content {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
+	.project-tag {
+	    font-size: 0.75rem;
+	    text-transform: uppercase;
+	    color: var(--primary-blue, #3498db);
+	    font-weight: 700;
+	    margin-bottom: 6px;
+	}
 
-.project-tag {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: var(--primary-blue, #3498db);
-    font-weight: 700;
-    margin-bottom: 8px;
-}
+	.project-content h3 {
+	    margin: 0 0 10px 0;
+	    font-size: 1.2rem;
+	    color: #2c3e50;
+	}
+	
+	.project-content p {
+	    margin: 0;
+	    font-size: 0.9rem;
+	    color: #666;
+	    line-height: 1.4;
+	}
 
-.project-content h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.25rem;
-    color: #2c3e50;
-}
+	/* Botones de Navegación del Carrusel (Flechas) */
+	.carousel-btn {
+	    position: absolute;
+	    top: 50%;
+	    transform: translateY(-50%);
+	    background: #ffffff;
+	    color: #2c3e50;
+	    border: none;
+	    width: 40px;
+	    height: 40px;
+	    border-radius: 50%;
+	    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+	    font-size: 1.2rem;
+	    cursor: pointer;
+	    z-index: 10;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    transition: 0.3s;
+	}
 
-.project-content p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.4;
-}
-    </style>
+	.carousel-btn:hover {
+	    background: var(--primary-blue, #3498db);
+	    color: white;
+	}
+
+	.btn-left { left: -5px; }
+	.btn-right { right: -5px; }
+		
+</style>
 </head>
 <body>
 
@@ -643,50 +662,101 @@ footer {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+let indiceActual = 0;
+let totalProyectos = 0;
+	
   // 1. Configura tus credenciales (Supabase te las da en la configuración de la API de tu proyecto)
   const SUPABASE_URL = "https://ussqombvzuzvsopdzvao.supabase.co";
   const SUPABASE_KEY = "sb_publishable_4yu7Fr1C7tGPflmXbNXp5A_AuB1Eg5f";
   const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   // 2. Función para leer los datos de la base de datos y renderizarlos
-  async function cargarProyectos() {
-      const { data: proyectos, error } = await _supabase
-          .from('proyectos')
-          .select('*')
-          .order('created_at', { ascending: false }); // Muestra los más nuevos primero
+async function cargarProyectos() {
+    const contenedor = document.getElementById('contenedor-proyectos');
+    
+    // Tu consulta existente a Supabase
+    const { data: proyectos, error } = await _supabase
+        .from('proyectos')
+        .select('*');
 
-      if (error) {
-          console.error("Error cargando proyectos:", error);
-          return;
-      }
+    if (error || !proyectos || proyectos.length === 0) {
+        contenedor.innerHTML = '<p style="padding:20px; color:#888;">No hay proyectos disponibles en este momento.</p>';
+        return;
+    }
 
-      const contenedor = document.getElementById('contenedor-proyectos');
-      contenedor.innerHTML = ''; // Limpiar el cargando...
+    totalProyectos = proyectos.length;
+    contenedor.innerHTML = '';
 
-      // Si no hay proyectos ingresados en el gestor
-      if (proyectos.length === 0) {
-          contenedor.innerHTML = '<p style="text-align:center; width:100%;">Próximamente compartiremos nuestros proyectos.</p>';
-          return;
-      }
+    // Inyectamos las tarjetas respetando la nueva estructura del carrusel
+    proyectos.forEach(p => {
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'project-card-slider';
+        tarjeta.innerHTML = `
+            <div class="project-image-placeholder">
+                <img src="${p.imagen_url}" alt="${p.titulo}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\'><rect width=\'100%\' height=\'100%\' fill=\'%23eee\'/><text x=\'50%\' y=\'50%\' font-size=\'14\' text-anchor=\'middle\' fill=\'%23666\'>Imagen no disponible</text></svg>'">
+            </div>
+            <div class="project-content">
+                <span class="project-tag">${p.categoria}</span>
+                <h3>${p.titulo}</h3>
+                <p>${p.descripcion}</p>
+            </div>
+        `;
+        contenedor.appendChild(tarjeta);
+    });
 
-      // 3. Crear el HTML dinámicamente para cada proyecto ingresado
-      proyectos.forEach(proyecto => {
-          const card = document.createElement('div');
-          card.className = 'project-card-slider';
-          
-          card.innerHTML = `
-              <div class="project-image-placeholder">
-                  <img src="${proyecto.imagen_url}" alt="${proyecto.titulo}" onerror="this.style.display='none'; this.parentNode.innerHTML='[ ${proyecto.titulo} ]'">
-              </div>
-              <div class="project-content">
-                  <span class="project-tag">${proyecto.categoria}</span>
-                  <h3>${proyecto.titulo}</h3>
-                  <p>${proyecto.descripcion}</p>
-              </div>
-          `;
-          contenedor.appendChild(card);
-      });
-  }
+    configurarEventosCarrusel();
+}
+
+function configurarEventosCarrusel() {
+    const contenedor = document.getElementById('contenedor-proyectos');
+    const btnLeft = document.getElementById('btn-carousel-left');
+    const btnRight = document.getElementById('btn-carousel-right');
+
+    if (!btnLeft || !btnRight || !contenedor) return;
+
+    // Función que calcula el desplazamiento
+    const moverCarrusel = () => {
+        // Obtenemos el ancho de una tarjeta individual en tiempo real
+        const tarjeta = contenedor.querySelector('.project-card-slider');
+        if (!tarjeta) return;
+        
+        const anchoTarjeta = tarjeta.getBoundingClientRect().width;
+        const gap = 24; // Debe ser el mismo gap definido en el CSS
+        
+        // Desplazamos la tira horizontal usando CSS Translate
+        contenedor.style.transform = `translateX(-${indiceActual * (anchoTarjeta + gap)}px)`;
+    };
+
+    btnRight.addEventListener('click', () => {
+        // Determinamos cuántas tarjetas caben por pantalla según el ancho del navegador
+        const tarjetasPorPantalla = window.innerWidth > 900 ? 3 : (window.innerWidth > 600 ? 2 : 1);
+        
+        // Evitamos que avance si ya llegó al límite de proyectos cargados
+        if (indiceActual < totalProyectos - tarjetasPorPantalla) {
+            indiceActual++;
+            moverCarrusel();
+        } else {
+            // Opcional: Vuelve al inicio si presionas "Siguiente" en el último elemento
+            indiceActual = 0;
+            moverCarrusel();
+        }
+    });
+
+    btnLeft.addEventListener('click', () => {
+        if (indiceActual > 0) {
+            indiceActual--;
+            moverCarrusel();
+        } else {
+            // Opcional: Va al final si presionas "Anterior" estando en el inicio
+            const tarjetasPorPantalla = window.innerWidth > 900 ? 3 : (window.innerWidth > 600 ? 2 : 1);
+            indiceActual = Math.max(0, totalProyectos - tarjetasPorPantalla);
+            moverCarrusel();
+        }
+    });
+
+    // Escucha si el usuario cambia el tamaño de la ventana (para recalcular las proporciones)
+    window.addEventListener('resize', moverCarrusel);
+}
 	
 	// Agrega esta función dentro de los scripts de tu index.html
 async function cargarContactoDinamico() {
@@ -714,6 +784,9 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarProyectos();         // Tu función existente
     cargarContactoDinamico();  // La nueva función
 });
+
+
+	
 </script>
 </body>
 </html>
