@@ -393,6 +393,22 @@ footer {
 	    }
 	}
 
+	/* Ventana del carrusel: actúa como una "máscara" que corta todo lo que se sale */
+	.projects-carousel-window {
+	    width: 100%;
+	    overflow: hidden; /* CRÍTICO: Corta el 4to proyecto para que no se asome */
+	    position: relative;
+	}
+
+	/* Contenedor principal de la sección (Asegúrate de que tenga esto) */
+	.carousel-wrapper {
+	    position: relative;
+	    max-width: 1100px;
+	    margin: 0 auto;
+	    padding: 0 45px; /* Da espacio para que las flechas queden fuera del corte */
+	    box-sizing: border-box;
+	}
+
 	/* Tira horizontal que contiene todas las tarjetas */
 	.projects-grid-horizontal {
 	    display: flex;
